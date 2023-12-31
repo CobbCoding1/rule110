@@ -3,27 +3,32 @@
 #include <time.h>
 #include <string.h>
 
-char cell[2] = " *";
-#define SIZE 64 
-int grid[SIZE] = {0};
+typedef enum {
+  OFF = 0,
+  ON = 1,
+} Cell;
 
-#define ITERATIONS 64 
+char cell[2] = " *";
+#define SIZE 128 
+Cell grid[SIZE] = {0};
+
+#define ITERATIONS 128 
 
 typedef struct {
   char pattern[3];
-  int output;
+  Cell output;
 } Pattern;
 
 #define PATTERNS 8
 Pattern patterns[PATTERNS] = {
-  {"111", 0},
-  {"110", 1},
-  {"101", 1},
-  {"100", 0},
-  {"011", 1},
-  {"010", 1},
-  {"001", 1},
-  {"000", 0},
+  {"111", OFF},
+  {"110", ON},
+  {"101", ON},
+  {"100", OFF},
+  {"011", ON},
+  {"010", ON},
+  {"001", ON},
+  {"000", OFF},
 };
 
 void init_grid() {
@@ -56,7 +61,7 @@ void print_grid_twin() {
 }
 
 void gen_next() {
-  int next_grid[SIZE] = {0};
+  Cell next_grid[SIZE] = {0};
   for(size_t i = 0; i < SIZE; i++) {
     size_t prev_in = (i - 1 + SIZE) % SIZE;
     size_t cur_in = (i + SIZE) % SIZE;
@@ -74,7 +79,7 @@ void gen_next() {
 }
 
 int main() {
-  grid[SIZE-1] = 1;
+  grid[SIZE-1] = ON;
   srand(time(NULL));
   for(size_t i = 0; i < ITERATIONS; i++) {
     print_grid();
