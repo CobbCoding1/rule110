@@ -34,8 +34,24 @@ void init_grid() {
 
 void print_grid() {
   for(size_t i = 0; i < SIZE; i++) {
-    printf("%c", cell[grid[i]]);
+	  putc(cell[grid[i]], stdout);
   }
+  printf("\n");
+}
+
+void print_grid_twin() {
+  size_t first_index = 0;
+  for(size_t i = 0; i < SIZE; i++) {
+	  if(grid[i] == 1) {
+		first_index = i;
+		break;
+	  }
+  }
+
+  for(size_t i = first_index / 2; i < SIZE; i++) {
+	printf("%c", cell[grid[i]]);
+  }
+
   printf("\n");
 }
 
